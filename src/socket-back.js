@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import { encontrarDocumento, atualizaDocumento } from "./documentosDb.js"
 import io from "./server.js"
 
