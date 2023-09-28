@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import { encontrarDocumento, atualizaDocumento, obterDocumentos, adicionarDocumento } from "./documentosDb.js"
+import { encontrarDocumento, atualizaDocumento, obterDocumentos, adicionarDocumento, excluirDocumento } from "./documentosDb.js"
 import io from "./server.js"
 
 io.on('connection', (socket) => {
@@ -35,6 +35,13 @@ io.on('connection', (socket) => {
     const atualizacao = await atualizaDocumento(nomeDocumento, texto)
     if (atualizacao.modifiedCount) {
       socket.to(nomeDocumento).emit('texto_editor_clientes', texto)
+    }
+  })
+
+  socket.on('excluir_documento', async (nome) => {
+    const exclusao = await excluirDocumento(nome)
+    if (exclusao.deletedCount) {
+      io.emit('excluir_documento_sucesso', nome)
     }
   })
 })

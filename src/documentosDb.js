@@ -16,4 +16,8 @@ function atualizaDocumento(nome, texto) {
   return documentosColecao.updateOne({ nome }, { $set: { texto }})
 }
 
-export { encontrarDocumento, atualizaDocumento, obterDocumentos, adicionarDocumento }
+function excluirDocumento(nome) {
+  return documentosColecao.deleteOne({ nome })
+}
+
+export { encontrarDocumento, atualizaDocumento, obterDocumentos, adicionarDocumento, excluirDocumento}
